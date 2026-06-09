@@ -10,6 +10,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,7 +23,8 @@ public class ParkingSession extends BaseModel {
     private LocalDateTime to;
 
     private String licensePlate;
-    //TODO when parking spot service is implemented we have to add parking spot to this!
+    private UUID parkingRegionId;
+
     @ManyToOne
     @JoinColumn(name = "vehicleId", nullable = false)
     private Vehicle vehicle;

@@ -16,5 +16,6 @@ public class ParkingSessionDto {
     private LocalDateTime to;
 
     private String licensePlate;
+    private UUID parkingRegionId;
     private VehicleDto vehicle;
 }
