@@ -13,22 +13,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Java
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
+          cache: maven
+      - name: test
+        run: mvn clean test
 
-      - name: Cache Maven packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven-
-
-      - name: Build & generate proto stubs
-        run: ./mvnw --batch-mode compile
-
-      - name: Run unit tests
-        run: ./mvnw --batch-mode test -Dtest="VehicleGrpcServiceTest,ParkingSessionGrpcServiceTest,VehiclesControllerTest"
+      - name: Clean install
+        run: mvn clean -B install -Dspring.config.location=src/main/resources/ci-application.properties --file pom.xml
