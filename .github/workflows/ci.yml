@@ -19,8 +19,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
+          restore-keys: ${{ runner.os }}-maven-
+
       - name: test
         run: mvn clean test
-
-      - name: Clean install
-        run: mvn clean -B install -Dspring.config.location=src/main/resources/ci-application.properties --file pom.xml
