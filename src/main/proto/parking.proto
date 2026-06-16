@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package parking;
+
+option java_package = "si.afridau.parking.grpc.proto";
+option java_multiple_files = true;
+
+import "google/protobuf/empty.proto";
+
+// ─── Vehicle ──────────────────────────────────────────────────────────────────
+
+message VehicleProto {
+  string id = 1;
+  string name = 2;
+  string license_plate = 3;
+}
+
+message GetVehicleRequest { string id = 1; }
+message DeleteVehicleRequest { string id = 1; }
+
+message AddVehicleRequest {
+  string name = 1;
+  string license_plate = 2;
+}
+
+message UpdateVehicleRequest {
+  string id = 1;
+  string name = 2;
+  string license_plate = 3;
+}
+
+message VehicleListResponse { repeated VehicleProto vehicles = 1; }
+
+service VehicleService {
+  rpc GetAll(google.protobuf.Empty) returns (VehicleListResponse);
+  rpc GetById(GetVehicleRequest) returns (VehicleProto);
+  rpc Create(AddVehicleRequest) returns (VehicleProto);
+  rpc Update(UpdateVehicleRequest) returns (VehicleProto);
+  rpc Delete(DeleteVehicleRequest) returns (google.protobuf.Empty);
+}
+
+// ─── ParkingSession ───────────────────────────────────────────────────────────
+
+message ParkingSessionProto {
+  string id = 1;
+  string from_time = 2;
+  string to_time = 3;
+  string license_plate = 4;
+  string parking_region_id = 5;
+  VehicleProto vehicle = 6;
+}
+
+message GetParkingSessionRequest { string id = 1; }
+message DeleteParkingSessionRequest { string id = 1; }
+
+message AddParkingSessionRequest {
+  string from_time = 1;
+  string to_time = 2;
+  string license_plate = 3;
+  string parking_region_id = 4;
+  string vehicle_id = 5;
+}
+
+message UpdateParkingSessionRequest {
+  string id = 1;
+  string from_time = 2;
+  string to_time = 3;
+  string license_plate = 4;
+  string parking_region_id = 5;
+  string vehicle_id = 6;
+}
+
+message ParkingSessionListResponse { repeated ParkingSessionProto sessions = 1; }
+
+service ParkingSessionService {
+  rpc GetAll(google.protobuf.Empty) returns (ParkingSessionListResponse);
+  rpc GetById(GetParkingSessionRequest) returns (ParkingSessionProto);
+  rpc Create(AddParkingSessionRequest) returns (ParkingSessionProto);
+  rpc Update(UpdateParkingSessionRequest) returns (ParkingSessionProto);
+  rpc Delete(DeleteParkingSessionRequest) returns (google.protobuf.Empty);
+}
