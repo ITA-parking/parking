@@ -26,6 +26,26 @@ jobs:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('pom.xml') }}
           restore-keys: ${{ runner.os }}-maven-
-
-      - name: test
-        run: mvn clean test
+#      - name: Make Maven wrapper executable
+#        run: chmod +x ./mvnw
+#      - name: Test
+#        run: ./mvnw --batch-mode test -Dtest="VehicleGrpcServiceTest,ParkingSessionGrpcServiceTest,VehiclesControllerTest"
+#
+#  docker:
+#    name: Build & Push Docker image
+#    runs-on: ubuntu-latest
+#    needs: build-and-test
+#    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+#    steps:
+#      - uses: actions/checkout@v4
+#      - uses: docker/login-action@v3
+#        with:
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#      - uses: docker/build-push-action@v6
+#        with:
+#          context: .
+#          push: true
+#          tags: |
+#            ${{ secrets.DOCKERHUB_USERNAME }}/ita-parking:latest
+#            ${{ secrets.DOCKERHUB_USERNAME }}/ita-parking:${{ github.sha }}

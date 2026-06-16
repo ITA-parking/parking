@@ -11,7 +11,7 @@ import si.afridau.parking.model.ParkingSession;
 
 @Mapper(componentModel = "spring", uses = ParkingSessionMapper.class)
 public interface ParkingSessionMapper {
-    @Mapping(source = "vehicle.licensePlate", target = "licensePlate", ignore = false)
+    @Mapping(source = "licensePlate", target = "licensePlate")
     ParkingSession toEntity(ParkingSessionDto dto);
 
     ParkingSessionDto toDto(ParkingSession session);

@@ -1,5 +1,6 @@
 package si.afridau.parking.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -19,7 +20,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @SuperBuilder(toBuilder = true)
 public class ParkingSession extends BaseModel {
+    @Column(name = "from_time")
     private LocalDateTime from;
+    @Column(name = "to_time")
     private LocalDateTime to;
 
     private String licensePlate;
