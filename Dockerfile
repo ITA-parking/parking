@@ -9,5 +9,5 @@ RUN ./mvnw -B package -DskipTests -q
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
-EXPOSE 8000 9090
+EXPOSE 7020
 CMD ["java", "-jar", "app.jar"]
